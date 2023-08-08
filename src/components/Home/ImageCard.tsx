@@ -24,7 +24,7 @@ const ImageCard = ({ post }: IImageCardProps) => {
         }}
         showsHorizontalScrollIndicator={false}
         horizontal
-        data={post}
+        data={post.slice(0, 5)}
         renderItem={({ item, index: renderIndex }) => (
           <TouchableOpacity className="w-64 h-40" onPress={() => {}}>
             <View className="">
@@ -34,7 +34,7 @@ const ImageCard = ({ post }: IImageCardProps) => {
                 className="w-64 h-40 rounded-3xl "
               />
 
-              <Text className="-mt-20 p-5 text-white font-semibold bg-black/20 rounded-b-3xl ">
+              <Text className="-mt-20 p-5 text-white font-semibold bg-black/20 rounded-b-3xl w-full h-20">
                 {item.title.substring(0, 90)}...
               </Text>
             </View>
