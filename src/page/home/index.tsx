@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../data/store/action/Post.action";
-import {
-  IInitialStateProps,
-  addPosts,
-} from "../../data/store/slice/Post.slice";
+import { addPosts } from "../../data/store/slice/Post.slice";
+import ImageCard from "../../components/Home/ImageCard";
 
 const HomeScreen = () => {
-  const post = useSelector((state: any) => state.post);
+  const post = useSelector((state: any) => state.posts.posts);
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -18,16 +16,18 @@ const HomeScreen = () => {
   };
 
   useEffect(() => {
-    if (!post) {
+    if (post.length === 0) {
       fetchPost().then((res) => {
         dispatch(addPosts(res));
       });
     }
-  }, [post]);
+  }, []);
   return (
-    <SafeAreaView className="flex-1 ">
+    <SafeAreaView className="flex-1 justify-center items-center ">
       <ScrollView>
-        <Text>Elt on</Text>
+        <View>
+          {post.length > 0 ? <ImageCard post={post} /> : <Text>Aguarde</Text>}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
